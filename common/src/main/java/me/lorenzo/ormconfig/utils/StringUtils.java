@@ -1,4 +1,4 @@
-package me.lorenzo.ormconfig.reflection;
+package me.lorenzo.ormconfig.utils;
 
 public class StringUtils {
 

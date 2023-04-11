@@ -1,4 +1,4 @@
-package me.lorenzo.ormconfig.file;
+package me.lorenzo.ormconfig.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;

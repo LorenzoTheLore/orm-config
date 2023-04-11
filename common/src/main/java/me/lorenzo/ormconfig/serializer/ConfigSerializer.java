@@ -1,14 +1,12 @@
 package me.lorenzo.ormconfig.serializer;
 
 import me.lorenzo.ormconfig.annotation.OrmConfig;
-import me.lorenzo.ormconfig.file.FileUtils;
-import me.lorenzo.ormconfig.reflection.ReflectionUtils;
-import me.lorenzo.ormconfig.reflection.StringUtils;
+import me.lorenzo.ormconfig.utils.FileUtils;
+import me.lorenzo.ormconfig.utils.ReflectionUtils;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Optional;
