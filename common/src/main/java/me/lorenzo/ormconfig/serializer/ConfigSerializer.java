@@ -1,12 +1,16 @@
 package me.lorenzo.ormconfig.serializer;
 
 import me.lorenzo.ormconfig.annotation.OrmConfig;
+import me.lorenzo.ormconfig.file.FileUtils;
 import me.lorenzo.ormconfig.reflection.ReflectionUtils;
 import me.lorenzo.ormconfig.reflection.StringUtils;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Optional;
 
 public class ConfigSerializer {
@@ -26,8 +30,15 @@ public class ConfigSerializer {
             throw new UnsupportedOperationException("Unable to deserialize " + file.getName() + " to class " + clazz.getSimpleName());
         }
 
-        //TODO
-        return (T) new Object();
+        FileReader fileReader = FileUtils.getFileReader(file);
+        T t = yaml.loadAs(fileReader, clazz);
+        try {
+            fileReader.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return t;
     }
 
     private ConfigSerializer() {

@@ -1,6 +1,8 @@
 package me.lorenzo.ormconfig.file;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 
 public class FileUtils {
@@ -27,6 +29,24 @@ public class FileUtils {
         }
 
         return file;
+    }
+
+    /**
+     * Get an instance of filereader for the specified file
+     *
+     * @param file file to create filereader on
+     * @return filereader instance
+     */
+    public static FileReader getFileReader(File file) {
+        File theFile = getFile(file.getPath(), file.getName());
+        FileReader fileReader = null;
+        try {
+            fileReader = new FileReader(theFile);
+        } catch (FileNotFoundException e) {
+            //We can ignore this case, it is handled by the getFile method
+        }
+
+        return fileReader;
     }
 
     /**
