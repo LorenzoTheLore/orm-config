@@ -10,4 +10,15 @@ public interface ConfigHolder<T> {
      */
     T getConfig(Class<T> configClass);
 
+    /**
+     * Save (serialize) current instance data to file
+     */
+    void save();
+
+    /**
+     * Get the class of the model contained in this holder
+     *
+     * @return type of config
+     */
+    Class<T> getConfigClass();
 }
