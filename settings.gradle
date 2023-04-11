@@ -1,0 +1,4 @@
+rootProject.name = 'orm-config'
+include 'api'
+include 'common'
+
