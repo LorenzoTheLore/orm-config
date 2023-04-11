@@ -6,10 +6,9 @@ public class SimpleConfigHolder<T> implements ConfigHolder<T> {
     private T cachedInstance;
 
     @Override
-    public T getConfig(Class<? extends T> configClass) {
+    public T getConfig(Class<T> configClass) {
         if(cachedInstance == null)
-            System.out.println("Asd");
-            //TODO load instance from serializer
+            this.cachedInstance = (T) ConfigFactory.getConfigHolder(configClass);
         return cachedInstance;
     }
 }

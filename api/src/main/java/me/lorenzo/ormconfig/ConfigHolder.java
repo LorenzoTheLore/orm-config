@@ -8,6 +8,6 @@ public interface ConfigHolder<T> {
      * @param configClass configuration model that holds the structure of the configuration
      * @return configuration instance initialized with updated data
      */
-    T getConfig(Class<? extends T> configClass);
+    T getConfig(Class<T> configClass);
 
 }
