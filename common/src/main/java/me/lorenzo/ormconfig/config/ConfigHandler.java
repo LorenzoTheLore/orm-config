@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 public abstract class ConfigHandler {
-    private final PersistenceHandler persistenceHandler;
+    protected final PersistenceHandler persistenceHandler;
     private final List<ConfigHolder<?>> configHolders;
 
     public <T> ConfigHolder<T> getConfigHolder(Class<T> configClass) {
