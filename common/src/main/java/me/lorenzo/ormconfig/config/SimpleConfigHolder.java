@@ -13,7 +13,7 @@ public class SimpleConfigHolder<T> implements ConfigHolder<T> {
     }
 
     @Override
-    public T getConfig(Class<T> configClass) {
+    public T getConfig() {
         if(cachedInstance == null)
             this.cachedInstance = (T) configHandler.getConfigHolder(configClass);
         return cachedInstance;
