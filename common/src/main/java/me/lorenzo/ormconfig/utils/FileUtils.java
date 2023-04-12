@@ -1,9 +1,6 @@
 package me.lorenzo.ormconfig.utils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class FileUtils {
 
@@ -47,6 +44,24 @@ public class FileUtils {
         }
 
         return fileReader;
+    }
+
+    /**
+     * Get an instance of filewriter for the specified file
+     *
+     * @param file file to create filewriter on
+     * @return filewriter instance
+     */
+    public static FileWriter getFileWriter(File file) throws IOException {
+        File theFile = getFile(file.getPath(), file.getName());
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(theFile);
+        } catch (FileNotFoundException e) {
+            //We can ignore this case, it is handled by the getFile method
+        }
+
+        return fileWriter;
     }
 
     /**

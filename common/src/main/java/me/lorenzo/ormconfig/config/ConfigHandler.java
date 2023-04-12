@@ -1,16 +1,20 @@
 package me.lorenzo.ormconfig.config;
 
 import me.lorenzo.ormconfig.ConfigHolder;
-import me.lorenzo.ormconfig.serializer.ConfigSerializer;
+import me.lorenzo.ormconfig.annotation.OrmConfig;
+import me.lorenzo.ormconfig.persistence.PersistenceHandler;
+import me.lorenzo.ormconfig.utils.ReflectionUtils;
+import me.lorenzo.ormconfig.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ConfigHandler {
-    private static List<ConfigHolder<?>> configHolders;
+public abstract class ConfigHandler {
+    private final PersistenceHandler persistenceHandler;
+    private final List<ConfigHolder<?>> configHolders;
 
-    public static <T> ConfigHolder<T> getConfigHolder(Class<T> configClass) {
+    public <T> ConfigHolder<T> getConfigHolder(Class<T> configClass) {
         Optional<ConfigHolder<?>> configHolderOptional = findConfigHolder(configClass);
         if(configHolderOptional.isEmpty()) {
             return createConfigHolder(configClass);
@@ -19,20 +23,23 @@ public class ConfigHandler {
         return (ConfigHolder<T>) configHolderOptional.get();
     }
 
-    private static Optional<ConfigHolder<?>> findConfigHolder(Class<?> clazz) {
+    public abstract <T> void save(T configInstance);
+
+    private Optional<ConfigHolder<?>> findConfigHolder(Class<?> clazz) {
         return configHolders.stream()
                 .filter(configHolder -> configHolder.getConfigClass() == clazz)
                 .findAny();
     }
 
-    private static <T> ConfigHolder<T> createConfigHolder(Class<T> configClass) {
-        SimpleConfigHolder<T> simpleConfigHolder = new SimpleConfigHolder<>(configClass);
+    private <T> ConfigHolder<T> createConfigHolder(Class<T> configClass) {
+        SimpleConfigHolder<T> simpleConfigHolder = new SimpleConfigHolder<>(configClass, this);
 
         configHolders.add(simpleConfigHolder);
         return simpleConfigHolder;
     }
 
-    static {
-        configHolders = new ArrayList<>();
+    private ConfigHandler() {
+        this.persistenceHandler = new PersistenceHandler();
+        this.configHolders = new ArrayList<>();
     }
 }
