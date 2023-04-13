@@ -3,7 +3,7 @@ plugins {
     id 'maven-publish'
 }
 
-group 'me.lorenzo'
+group 'me.lorenzo.ormconfig'
 version '1.0-SNAPSHOT'
 
 repositories {
