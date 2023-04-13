@@ -1,6 +1,7 @@
 package me.lorenzo.ormconfig.utils;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Optional;
@@ -36,4 +37,20 @@ public class ReflectionUtils {
         return Optional.ofNullable(annotationInstance);
     }
 
+    /**
+     * Create a new generic instance of a class, using the default empty constructor
+     *
+     * @param configClass class to use to create the new instance
+     * @return new instance of the specified class
+     * @param <T> type of the instance
+     */
+    public static <T> T createInstance(Class<T> configClass) {
+        try {
+            Constructor<T> constructor = configClass.getDeclaredConstructor();
+
+            return constructor.newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to find empty constructor for class " + configClass.getSimpleName());
+        }
+    }
 }

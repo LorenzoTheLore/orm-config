@@ -32,7 +32,8 @@ public abstract class ConfigHandler {
     }
 
     private <T> ConfigHolder<T> createConfigHolder(Class<T> configClass) {
-        SimpleConfigHolder<T> simpleConfigHolder = new SimpleConfigHolder<>(configClass, this);
+        T instance = ReflectionUtils.createInstance(configClass);
+        SimpleConfigHolder<T> simpleConfigHolder = new SimpleConfigHolder<>(configClass, this, instance);
 
         configHolders.add(simpleConfigHolder);
         return simpleConfigHolder;

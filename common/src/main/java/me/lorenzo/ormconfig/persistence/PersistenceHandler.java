@@ -27,6 +27,14 @@ public class PersistenceHandler {
         this.yaml = new Yaml(dumperOptions);
     }
 
+    /**
+     * Writes current configuration instance to file.
+     * Note: Only fields annotated with {@link OrmField @OrmField} will be written in file
+     *
+     * @param configInstance configuration instance containing updated configuration data
+     * @param file file used to store data
+     * @throws Exception generic exception thrown when writing fails
+     */
     public void write(Object configInstance, File file) throws Exception {
         Class<?> configClass = configInstance.getClass();
         Map<String, Object> values = new HashMap<>();

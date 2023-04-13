@@ -7,15 +7,14 @@ public class SimpleConfigHolder<T> implements ConfigHolder<T> {
     private final ConfigHandler configHandler;
     private T cachedInstance;
 
-    public SimpleConfigHolder(Class<T> configClass, ConfigHandler configHandler) {
+    public SimpleConfigHolder(Class<T> configClass, ConfigHandler configHandler, T instance) {
         this.configClass = configClass;
         this.configHandler = configHandler;
+        this.cachedInstance = instance;
     }
 
     @Override
     public T getConfig() {
-        if(cachedInstance == null)
-            this.cachedInstance = (T) configHandler.getConfigHolder(configClass);
         return cachedInstance;
     }
 
